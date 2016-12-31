@@ -1,0 +1,17 @@
+Package: harmonHelper
+Type: Package
+Title: harmonHelper
+Version: 0.1.0
+Author: Jai Broome
+Maintainer: Jai Broome <jbroome@uw.edu>
+Description: Helper functions for TOPMed phenotype harmonization
+Encoding: UTF-8
+LazyData: true
+Imports:
+    dbHelper,
+    dbTopmed,
+    XML,
+    magrittr,
+    plyr,
+    dplyr
+RoxygenNote: 5.0.1.9000

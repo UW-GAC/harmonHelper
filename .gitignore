@@ -1,0 +1,8 @@
+# macOS
+._*
+
+# R/Rstudio
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
