@@ -41,7 +41,7 @@ wbcCheck<-function(data,wbc="wbc_ncnc_bld",lymph="lymphocyte_ncnc_bld",mono="mon
   tmp<-data[sel3,]
   tmp4<-tmp[,c("lymph","mono","neutro","eosin","baso")]
   tmp4$sum<-rowSums(tmp4,na.rm=TRUE)
-  tmp4$dif<-abs(tmp4$sum - tmp$wbc)/tmp$wbc
+  tmp4$dif <- (tmp4$sum - tmp$wbc)/tmp$wbc
   tmp4$abs_dif <- abs(tmp4$sum - tmp$wbc)/tmp$wbc
   ck<-tmp4$abs_dif > 0.05
   out[[3]]<-sum(ck)
