@@ -13,5 +13,6 @@ Imports:
     XML,
     magrittr,
     plyr,
-    dplyr
+    dplyr,
+    ggplot2
 RoxygenNote: 5.0.1.9000

@@ -19,14 +19,14 @@ wbcCheck<-function(data,wbc="wbc_ncnc_bld",lymph="lymphocyte_ncnc_bld",mono="mon
     names(data)[names(data)==nms[i]]<-nms2[i]
   }
   print(names(data))
-  out<-vector("list",length=3)
-  names(out)<-c("wbc.na","sum_withNA_bad","sum_noNA_bad")
+  out<-vector("list",length=5)
+  names(out)<-c("wbc.na","sum_withNA_bad","sum_noNA_bad", "abs_dif", "density")
   n<-is.na(data$wbc)
   n2<- !is.na(data$lymph) | !is.na(data$mono) | !is.na(data$neutro) | !is.na(data$eosin) | !is.na(data$baso)
   nq<-n2 & n
   out[[1]]<-sum(nq)
 
-  sel<-!n &n2
+  sel<-!n &n2 # has wbc value and at least one differential value
   n3<- is.na(data$lymph) | is.na(data$mono) | is.na(data$neutro) | is.na(data$eosin) | is.na(data$baso)
   sel2<-sel & n3
   tmp<-data[sel2,]
@@ -37,13 +37,20 @@ wbcCheck<-function(data,wbc="wbc_ncnc_bld",lymph="lymphocyte_ncnc_bld",mono="mon
   out[[2]]<-sum(ck)
 
   n4<- !is.na(data$lymph) & !is.na(data$mono) & !is.na(data$neutro) & !is.na(data$eosin) & !is.na(data$baso)
-  sel3<-!n & n4
+  sel3<-!n & n4 # has value for wbc and all differentials
   tmp<-data[sel3,]
   tmp4<-tmp[,c("lymph","mono","neutro","eosin","baso")]
   tmp4$sum<-rowSums(tmp4,na.rm=TRUE)
-  dif<-abs(tmp4$sum - tmp$wbc)/tmp$wbc
-  ck<-dif > 0.05
+  tmp4$dif<-abs(tmp4$sum - tmp$wbc)/tmp$wbc
+  tmp4$abs_dif <- abs(tmp4$sum - tmp$wbc)/tmp$wbc
+  ck<-tmp4$abs_dif > 0.05
   out[[3]]<-sum(ck)
+
+  out[[4]] <- tmp4$abs_dif
+
+  g <- ggplot(tmp4, aes(x = dif)) + geom_density()
+
+  out[[5]] <- g
 
   return(out)
 }
