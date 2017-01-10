@@ -1,4 +1,4 @@
-#' Get encoded values by trait ID
+#' Check white blood cell measurements against the differential measurements
 #' @param data a dataframe
 #' @param wbc The name of the column with WBC measurements
 #' @param lymph The name of the column with lymphocyte measurements

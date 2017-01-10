@@ -2,7 +2,7 @@
 % Please edit documentation in R/wbcCheck.r
 \name{wbcCheck}
 \alias{wbcCheck}
-\title{Get encoded values by trait ID}
+\title{Check white blood cell measurements against the differential measurements}
 \usage{
 wbcCheck(data, wbc = "wbc_ncnc_bld", lymph = "lymphocyte_ncnc_bld",
   mono = "monocyte_ncnc_bld", neutro = "neutrophil_ncnc_bld",
@@ -24,5 +24,5 @@ wbcCheck(data, wbc = "wbc_ncnc_bld", lymph = "lymphocyte_ncnc_bld",
 \item{baso}{The name of the column with basophil measurements}
 }
 \description{
-Get encoded values by trait ID
+Check white blood cell measurements against the differential measurements
 }
