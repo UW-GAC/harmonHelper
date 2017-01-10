@@ -2,3 +2,4 @@
 
 export(configSkeleton)
 export(readDats)
+export(wbcCheck)
