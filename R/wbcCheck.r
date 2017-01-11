@@ -19,8 +19,8 @@ wbcCheck<-function(data,wbc="wbc_ncnc_bld",lymph="lymphocyte_ncnc_bld",mono="mon
     names(data)[names(data)==nms[i]]<-nms2[i]
   }
   print(names(data))
-  out<-vector("list",length=5)
-  names(out)<-c("wbc.na","sum_withNA_bad","sum_noNA_bad", "abs_dif", "density")
+  out<-vector("list",length=6)
+  names(out)<-c("wbc.na","sum_withNA_bad","sum_noNA_bad", "abs_dif", "density_all", "density_no_match")
   n<-is.na(data$wbc)
   n2<- !is.na(data$lymph) | !is.na(data$mono) | !is.na(data$neutro) | !is.na(data$eosin) | !is.na(data$baso)
   nq<-n2 & n
@@ -48,9 +48,12 @@ wbcCheck<-function(data,wbc="wbc_ncnc_bld",lymph="lymphocyte_ncnc_bld",mono="mon
 
   out[[4]] <- tmp4$abs_dif
 
-  g <- ggplot(tmp4, aes(x = dif)) + geom_density()
+  g1 <- ggplot(tmp4, aes(x = dif)) + geom_density()
+  out[[5]] <- g1
 
-  out[[5]] <- g
+  g2 <- tmp4[tmp4$sum != tmp$wbc, ] %>%
+    ggplot(aes(x = dif)) + geom_density()
+  out[[6]] <- g2
 
   return(out)
 }
