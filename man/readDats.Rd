@@ -7,7 +7,7 @@
 readDats(file_list)
 }
 \arguments{
-\item{file_list}{A list of files to be passed to `load`}
+\item{file_list}{A list of files to be passed to `load()`}
 }
 \description{
 Loads datasets returned by harmonization. Requires .RData files to return dataset named `dat`

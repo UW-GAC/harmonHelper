@@ -2,6 +2,8 @@
 #' @param db A database connection
 #' @param dbgap_trait_accessions A vector of dbGaP variable accessions, as integers
 #' @param file File path and filename for exported XML config file
+#' @import magrittr
+#' @import XML
 #' @export
 configSkeleton <- function(db, dbgap_trait_accessions, file = "RENAME_ME_config.xml"){
   trait_ids <- dbGetTraitInfoByAccession(db, dbgap_trait_accessions) %>%
