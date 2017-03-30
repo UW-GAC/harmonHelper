@@ -1,6 +1,14 @@
 #' Construct the skeleton for the XML configuration file for the harmonization batch. Takes named lists as arguments
-#' @param dbgap_trait_accessions A vector of dbGaP variable accessions, as integers
-#' @param file File path and filename for exported XML config file
+#' @param source_trait_ids A named vector or list of database IDs of source traits
+#' @param age_trait_ids A named vector or list of database IDs of age traits
+#' @param harmon_functions A named vector or list of paths to harmonization functions
+#' @param name Name of the harmonized trait
+#' @param qc_doc File path to the accompanying QC document
+#' @param output_dir Path to output directory
+#' @param output_prefix String to be prepended to the output files
+#' @param description Description of the harmonized trait
+#' @param data_type Data type of the output
+#' @param unit Unit of the harmonized trait
 #' @import magrittr
 #' @import XML
 #' @export

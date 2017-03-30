@@ -9,9 +9,25 @@ configSkeleton(source_trait_ids, age_trait_ids, harmon_functions, name, qc_doc,
   data_type = "", unit)
 }
 \arguments{
-\item{dbgap_trait_accessions}{A vector of dbGaP variable accessions, as integers}
+\item{source_trait_ids}{A named vector or list of database IDs of source traits}
 
-\item{file}{File path and filename for exported XML config file}
+\item{age_trait_ids}{A named vector or list of database IDs of age traits}
+
+\item{harmon_functions}{A named vector or list of paths to harmonization functions}
+
+\item{name}{Name of the harmonized trait}
+
+\item{qc_doc}{File path to the accompanying QC document}
+
+\item{output_dir}{Path to output directory}
+
+\item{output_prefix}{String to be prepended to the output files}
+
+\item{description}{Description of the harmonized trait}
+
+\item{data_type}{Data type of the output}
+
+\item{unit}{Unit of the harmonized trait}
 }
 \description{
 Construct the skeleton for the XML configuration file for the harmonization batch. Takes named lists as arguments
