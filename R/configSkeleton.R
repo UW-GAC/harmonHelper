@@ -2,6 +2,7 @@
 #' @param source_trait_ids A named vector or list of database IDs of source traits
 #' @param age_trait_ids A named vector or list of database IDs of age traits
 #' @param harmonized_trait_set_ids A named vector or list of database IDs of harmonized trait sets
+#' @param batch_trait_ids A named vector or list of database IDs of batch traits
 #' @param harmon_functions A named vector or list of paths to harmonization functions
 #' @param name Name of the harmonized trait
 #' @param qc_doc File path to the accompanying QC document
@@ -10,6 +11,8 @@
 #' @param description Description of the harmonized trait
 #' @param data_type Data type of the output
 #' @param unit Unit of the harmonized trait
+#' @param is_demographic Flags output as a demographic trait
+#' @param is_longitudinal Flags output as a longitudinal trait and allows multiple observations per topmed_subject_id
 #' @import magrittr
 #' @import XML
 #' @export
@@ -18,6 +21,7 @@
 configSkeleton <- function(source_trait_ids,
                            age_trait_ids,
                            harmonized_trait_set_ids,
+                           batch_trait_ids,
                            harmon_functions,
                            name,
                            qc_doc,
@@ -26,18 +30,20 @@ configSkeleton <- function(source_trait_ids,
                            description = "",
                            data_type = "",
                            unit,
-                           is_demographic = FALSE){
+                           is_demographic = FALSE,
+                           is_longitudinal = FALSE){
 
     stids <- source_trait_ids
     atids <- age_trait_ids
     htsids <- harmonized_trait_set_ids
+    btids <- batch_trait_ids
     hfs <- harmon_functions
 
     # ERRORS
     
     # This function requires that all of the lists provided as arguments have the
     # same names
-    if (list(atids, hfs, htsids) %>% 
+    if (list(atids, hfs, htsids, btids) %>% 
             lapply(names) %>% 
             lapply(sort) %>% 
             sapply(equals, sort(names(stids))) %>% 
@@ -60,15 +66,20 @@ configSkeleton <- function(source_trait_ids,
         node <- xmlNode("input_unit", attrs = c(unit_id = hu)) %>%
             addChildren(kids = list(xmlNode("custom_function", value = hfs[[hu]])))
 
-        if (!is.na(stids[[hu]])){
+        if (stids[[hu]] %>% is.na %>% all %>% not){
             stid_node <- lapply(stids[[hu]], xmlNode, name = "source_trait_id")
             atid_node <- lapply(atids[[hu]], xmlNode, name = "age_trait_id")
             node %<>% addChildren(kids = c(stid_node, atid_node))
         }
 
-        if (!is.na(htsids[[hu]])){
+        if (htsids[[hu]] %>% is.na %>% all %>% not){
             htsid_node <- lapply(htsids[[hu]], xmlNode, name = "harmonized_trait_set_id")
             node %<>% addChildren(kids = htsid_node)
+        }
+        
+        if (btids[[hu]] %>% is.na %>% all %>% not){
+            btid_node <- lapply(btids[[hu]], xmlNode, name = "batch_trait_id")
+            node %<>% addChildren(kids = btid_node)
         }
 
         input_node %<>% addChildren(kids = list(node))
@@ -106,6 +117,14 @@ configSkeleton <- function(source_trait_ids,
 
     if (is_demographic){
         metadata_node %<>%  addChildren(kids = list(xmlNode("is_demographic")))
+    }
+    
+    if (is_longitudinal){
+        metadata_node %<>%  addChildren(kids = list(xmlNode("is_longitudinal")))
+    }
+    
+    if (btids %>% is.na %>% all %>% not){
+        metadata_node %<>%  addChildren(kids = list(xmlNode("has_batch")))
     }
 
     # Config
