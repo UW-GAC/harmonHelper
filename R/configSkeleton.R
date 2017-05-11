@@ -1,6 +1,7 @@
 #' Construct the skeleton for the XML configuration file for the harmonization batch. Takes named lists as arguments
 #' @param source_trait_ids A named vector or list of database IDs of source traits
 #' @param age_trait_ids A named vector or list of database IDs of age traits
+#' @param harmonized_trait_set_ids A named vector or list of database IDs of harmonized trait sets
 #' @param harmon_functions A named vector or list of paths to harmonization functions
 #' @param name Name of the harmonized trait
 #' @param qc_doc File path to the accompanying QC document
@@ -16,6 +17,7 @@
 
 configSkeleton <- function(source_trait_ids,
                            age_trait_ids,
+                           harmonized_trait_set_ids,
                            harmon_functions,
                            name,
                            qc_doc,
@@ -27,17 +29,20 @@ configSkeleton <- function(source_trait_ids,
 
     stids <- source_trait_ids
     atids <- age_trait_ids
+    htsids <- harmonized_trait_set_ids
     hfs <- harmon_functions
 
-    # Error messages
-    if (sum(!(names(stids) %in% names(atids)))){
-        stop("The names of source_trait_ids and age_trait_ids don't match")
-    } else if (sum(!(names(stids) %in% names(hfs)))){
-        stop("The names of source_trait_ids and harmon_functions don't match")
-    } else if (!all(sapply(list(stids, atids, hfs), length) == length(stids))){
-        stop("source_trait_ids, age_trait_ids and harmon_functions are not all the same length")
+    # This function requires that all of the lists provided as arguments have the
+    # same names
+    if (list(atids, hfs, htsids) %>% 
+            lapply(names) %>% 
+            lapply(sort) %>% 
+            sapply(equals, sort(names(stids)))
+            all %>% 
+            not){
+        stop("The names of the arguments do not match")
     }
-
+    
     # Input
     input_node <- xmlNode("input")
     for(hu in names(stids)){
