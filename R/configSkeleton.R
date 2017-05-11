@@ -25,7 +25,8 @@ configSkeleton <- function(source_trait_ids,
                            output_prefix = "output",
                            description = "",
                            data_type = "",
-                           unit){
+                           unit,
+                           is_demographic = FALSE){
 
     stids <- source_trait_ids
     atids <- age_trait_ids
@@ -39,10 +40,18 @@ configSkeleton <- function(source_trait_ids,
     if (list(atids, hfs, htsids) %>% 
             lapply(names) %>% 
             lapply(sort) %>% 
-            sapply(equals, sort(names(stids)))
+            sapply(equals, sort(names(stids))) %>% 
             all %>% 
             not){
         stop("The names of the arguments do not match")
+    }
+    
+    if (is.na(atids) & !is_demographic) {
+        stop("Age trait ids are missing")
+    }
+    
+    if (!is.na(atids) & is_demographic) {
+        stop("Demographic datasets cannot take age trait ids")
     }
     
     # Input
@@ -95,6 +104,9 @@ configSkeleton <- function(source_trait_ids,
       metadata_node %<>% addChildren(kids = list(xmlNode("qc_document", value = qc_doc)))
     }
 
+    if (is_demographic){
+        metadata_node %<>%  addChildren(kids = list(xmlNode("is_demographic")))
+    }
 
     # Config
     xml_config <- xmlNode("config")
