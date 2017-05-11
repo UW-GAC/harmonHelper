@@ -4,14 +4,19 @@
 \alias{configSkeleton}
 \title{Construct the skeleton for the XML configuration file for the harmonization batch. Takes named lists as arguments}
 \usage{
-configSkeleton(source_trait_ids, age_trait_ids, harmon_functions, name, qc_doc,
-  output_dir = "", output_prefix = "output", description = "",
-  data_type = "", unit)
+configSkeleton(source_trait_ids, age_trait_ids, harmonized_trait_set_ids,
+  batch_trait_ids, harmon_functions, name, qc_doc, output_dir = "",
+  output_prefix = "output", description = "", data_type = "", unit,
+  is_demographic = FALSE, is_longitudinal = FALSE)
 }
 \arguments{
 \item{source_trait_ids}{A named vector or list of database IDs of source traits}
 
 \item{age_trait_ids}{A named vector or list of database IDs of age traits}
+
+\item{harmonized_trait_set_ids}{A named vector or list of database IDs of harmonized trait sets}
+
+\item{batch_trait_ids}{A named vector or list of database IDs of batch traits}
 
 \item{harmon_functions}{A named vector or list of paths to harmonization functions}
 
@@ -28,6 +33,10 @@ configSkeleton(source_trait_ids, age_trait_ids, harmon_functions, name, qc_doc,
 \item{data_type}{Data type of the output}
 
 \item{unit}{Unit of the harmonized trait}
+
+\item{is_demographic}{Flags output as a demographic trait}
+
+\item{is_longitudinal}{Flags output as a longitudinal trait and allows multiple observations per topmed_subject_id}
 }
 \description{
 Construct the skeleton for the XML configuration file for the harmonization batch. Takes named lists as arguments
