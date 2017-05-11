@@ -32,6 +32,8 @@ configSkeleton <- function(source_trait_ids,
     htsids <- harmonized_trait_set_ids
     hfs <- harmon_functions
 
+    # ERRORS
+    
     # This function requires that all of the lists provided as arguments have the
     # same names
     if (list(atids, hfs, htsids) %>% 
@@ -49,10 +51,17 @@ configSkeleton <- function(source_trait_ids,
         node <- xmlNode("input_unit", attrs = c(unit_id = hu)) %>%
             addChildren(kids = list(xmlNode("custom_function", value = hfs[[hu]])))
 
-        stid_node <- lapply(stids[[hu]], xmlNode, name = "source_trait_id")
-        atid_node <- lapply(atids[[hu]], xmlNode, name = "age_trait_id")
+        if (!is.na(stids[[hu]])){
+            stid_node <- lapply(stids[[hu]], xmlNode, name = "source_trait_id")
+            atid_node <- lapply(atids[[hu]], xmlNode, name = "age_trait_id")
+            node %<>% addChildren(kids = c(stid_node, atid_node))
+        }
 
-        node %<>% addChildren(kids = c(stid_node, atid_node))
+        if (!is.na(htsids[[hu]])){
+            htsid_node <- lapply(htsids[[hu]], xmlNode, name = "harmonized_trait_set_id")
+            node %<>% addChildren(kids = htsid_node)
+        }
+
         input_node %<>% addChildren(kids = list(node))
     }
 
