@@ -52,11 +52,11 @@ configSkeleton <- function(source_trait_ids,
         stop("The names of the arguments do not match")
     }
     
-    if (is.na(atids) & !is_demographic) {
+    if (all(is.na(atids)) & !is_demographic) {
         stop("Age trait ids are missing")
     }
     
-    if (!is.na(atids) & is_demographic) {
+    if (all(!is.na(atids)) & is_demographic) {
         stop("Demographic datasets cannot take age trait ids")
     }
     
