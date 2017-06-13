@@ -13,6 +13,7 @@
 #' @param unit Unit of the harmonized trait
 #' @param is_demographic Flags output as a demographic trait
 #' @param is_longitudinal Flags output as a longitudinal trait and allows multiple observations per topmed_subject_id
+#' @param encoded A named vector of encoded values
 #' @import magrittr
 #' @import XML
 #' @export
@@ -31,7 +32,8 @@ configSkeleton <- function(source_trait_ids,
                            data_type = "",
                            unit,
                            is_demographic = FALSE,
-                           is_longitudinal = FALSE){
+                           is_longitudinal = FALSE,
+                           encoded){
 
     stids <- source_trait_ids
     atids <- age_trait_ids
@@ -68,8 +70,12 @@ configSkeleton <- function(source_trait_ids,
 
         if (stids[[hu]] %>% is.na %>% all %>% not){
             stid_node <- lapply(stids[[hu]], xmlNode, name = "source_trait_id")
+            node %<>% addChildren(kids = stid_node)
+        }
+        
+        if (atids[[hu]] %>% is.na %>% all %>% not){
             atid_node <- lapply(atids[[hu]], xmlNode, name = "age_trait_id")
-            node %<>% addChildren(kids = c(stid_node, atid_node))
+            node %<>% addChildren(kids = atid_node)
         }
 
         if (htsids[[hu]] %>% is.na %>% all %>% not){
@@ -105,7 +111,12 @@ configSkeleton <- function(source_trait_ids,
     if (hasArg(unit)){
         target_kids %<>% c(list(xmlNode("unit", value = unit)))
     }
-
+    
+    if (hasArg(encoded)){
+        for (v in names(encoded)){
+            target_kids %<>% c(list(xmlNode("value", value = encoded[v], attrs = c("code" = v))))
+        }
+    }
 
     target_node %<>% addChildren(kids = target_kids)
 

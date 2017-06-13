@@ -1,7 +1,7 @@
 Package: harmonHelper
 Type: Package
 Title: harmonHelper
-Version: 1.0.01
+Version: 1.1.00
 Author: Jai Broome
 Maintainer: Jai Broome <jbroome@uw.edu>
 Description: Helper functions for TOPMed phenotype harmonization
@@ -11,4 +11,4 @@ Imports:
     XML,
     magrittr,
     ggplot2
-RoxygenNote: 5.0.1.9000
+RoxygenNote: 5.0.1
