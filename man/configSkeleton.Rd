@@ -7,7 +7,7 @@
 configSkeleton(source_trait_ids, age_trait_ids, harmonized_trait_set_ids,
   batch_trait_ids, harmon_functions, name, qc_doc, output_dir = "",
   output_prefix = "output", description = "", data_type = "", unit,
-  is_demographic = FALSE, is_longitudinal = FALSE)
+  is_demographic = FALSE, is_longitudinal = FALSE, encoded)
 }
 \arguments{
 \item{source_trait_ids}{A named vector or list of database IDs of source traits}
@@ -37,7 +37,10 @@ configSkeleton(source_trait_ids, age_trait_ids, harmonized_trait_set_ids,
 \item{is_demographic}{Flags output as a demographic trait}
 
 \item{is_longitudinal}{Flags output as a longitudinal trait and allows multiple observations per topmed_subject_id}
+
+\item{encoded}{A named vector of encoded values}
 }
 \description{
 Construct the skeleton for the XML configuration file for the harmonization batch. Takes named lists as arguments
 }
+
