@@ -1,3 +1,6 @@
+library(testthat)
+library(magrittr)
+library(XML)
 source("../../R/renderInputUnitNode.R")
 
 test_that("Render input unit", {
