@@ -1,4 +1,4 @@
-source("../R/renderInputUnitNode.R")
+source("../../R/renderInputUnitNode.R")
 
 test_that("Render input unit", {
         s1 <- 1
