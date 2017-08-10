@@ -26,4 +26,3 @@ wbcCheck(data, wbc = "wbc_ncnc_bld", lymph = "lymphocyte_ncnc_bld",
 \description{
 Check white blood cell measurements against the differential measurements
 }
-
