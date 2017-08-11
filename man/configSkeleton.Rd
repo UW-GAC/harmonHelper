@@ -2,7 +2,8 @@
 % Please edit documentation in R/configSkeleton.R
 \name{configSkeleton}
 \alias{configSkeleton}
-\title{Construct the skeleton for the XML configuration file for the harmonization batch. Takes named lists as arguments}
+\title{NOTE: This function is now defunct. Use renderInputNode(), renderOutputNode(), and renderMetaNode()
+Construct the skeleton for the XML configuration file for the harmonization batch. Takes named lists as arguments}
 \usage{
 configSkeleton(source_trait_ids, age_trait_ids, harmonized_trait_set_ids,
   batch_trait_ids, harmon_functions, name, qc_doc, output_dir = "",
@@ -41,5 +42,6 @@ configSkeleton(source_trait_ids, age_trait_ids, harmonized_trait_set_ids,
 \item{encoded}{A named vector of encoded values}
 }
 \description{
+NOTE: This function is now defunct. Use renderInputNode(), renderOutputNode(), and renderMetaNode()
 Construct the skeleton for the XML configuration file for the harmonization batch. Takes named lists as arguments
 }

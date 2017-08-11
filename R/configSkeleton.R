@@ -1,3 +1,4 @@
+#' NOTE: This function is now defunct. Use renderInputNode(), renderOutputNode(), and renderMetaNode()
 #' Construct the skeleton for the XML configuration file for the harmonization batch. Takes named lists as arguments
 #' @param source_trait_ids A named vector or list of database IDs of source traits
 #' @param age_trait_ids A named vector or list of database IDs of age traits
