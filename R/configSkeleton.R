@@ -45,6 +45,10 @@ configSkeleton <- function(source_trait_ids,
     
     # This function requires that all of the lists provided as arguments have the
     # same names
+    warning("This function is defunct, and will not be exported in future versions, \
+            then later removed. Use renderInputUnitNode(), renderOutputNode() and \
+            renderMetaNode()")
+            
     if (list(atids, hfs, htsids, btids) %>% 
             lapply(names) %>% 
             lapply(sort) %>% 

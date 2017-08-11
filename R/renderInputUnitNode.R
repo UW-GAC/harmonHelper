@@ -5,8 +5,10 @@
 #' @param htsids A vector of harmonized_trait_set_ids 
 #' @param btids A vector of source_trait_ids used for separating subjects/observations into batches
 #' @param hf Path to the harmonization function for this unit 
+#' @return A child node for the input node in a phenotype harmonization configuration file
 #' @import XML
 #' @import magrittr
+#' @export
 
 renderInputUnitNode <- function(unit_name, 
                                 stids = NULL, 

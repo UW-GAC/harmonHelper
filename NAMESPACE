@@ -2,6 +2,9 @@
 
 export(configSkeleton)
 export(readDats)
+export(renderInputUnitNode)
+export(renderMetaNode)
+export(renderOutputNode)
 export(wbcCheck)
 import(XML)
 import(ggplot2)

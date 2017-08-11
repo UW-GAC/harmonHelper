@@ -20,6 +20,9 @@ renderInputUnitNode(unit_name, stids = NULL, atids = NULL, htsids = NULL,
 
 \item{hf}{Path to the harmonization function for this unit}
 }
+\value{
+A child node for the input node in a phenotype harmonization configuration file
+}
 \description{
 Builds an input unit node for a phenotype harmonization configuration file
 }
