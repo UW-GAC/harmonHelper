@@ -6,9 +6,7 @@ Helper functions for frequently repeated tasks that come up during phenotype har
 
 Currently, this package is not installed to the GAC shared library. Use the `withr` and `devtools` packages to install it to your personal library
 
-```
-library(withr)
-library(devtools)
+```r
 install_loc <- "/path/to/your/library"
 withr::with_libpaths(new = install_loc, 
     devtools::install_github("UW-GAC/harmonHelper"))
