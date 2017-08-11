@@ -11,4 +11,6 @@ Imports:
     XML,
     magrittr,
     ggplot2
-RoxygenNote: 5.0.1
+Suggests: 
+    testthat
+RoxygenNote: 6.0.1

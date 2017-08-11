@@ -12,4 +12,3 @@ readDats(file_list)
 \description{
 Loads datasets returned by harmonization. Requires .RData files to return dataset named `dat`
 }
-

@@ -43,4 +43,3 @@ configSkeleton(source_trait_ids, age_trait_ids, harmonized_trait_set_ids,
 \description{
 Construct the skeleton for the XML configuration file for the harmonization batch. Takes named lists as arguments
 }
-
