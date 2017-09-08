@@ -2,7 +2,7 @@
 #' Construct the skeleton for the XML configuration file for the harmonization batch. Takes named lists as arguments
 #' @param source_trait_ids A named vector or list of database IDs of source traits
 #' @param age_trait_ids A named vector or list of database IDs of age traits
-#' @param harmonized_trait_set_ids A named vector or list of database IDs of harmonized trait sets
+#' @param harmonized_trait_set_version_ids A named vector or list of database IDs of harmonized trait sets
 #' @param batch_trait_ids A named vector or list of database IDs of batch traits
 #' @param harmon_functions A named vector or list of paths to harmonization functions
 #' @param name Name of the harmonized trait
@@ -22,7 +22,7 @@
 
 configSkeleton <- function(source_trait_ids,
                            age_trait_ids,
-                           harmonized_trait_set_ids,
+                           harmonized_trait_set_version_ids,
                            batch_trait_ids,
                            harmon_functions,
                            name,
@@ -38,7 +38,7 @@ configSkeleton <- function(source_trait_ids,
 
     stids <- source_trait_ids
     atids <- age_trait_ids
-    htsids <- harmonized_trait_set_ids
+    htsvids <- harmonized_trait_set_version_ids
     btids <- batch_trait_ids
     hfs <- harmon_functions
 
@@ -50,7 +50,7 @@ configSkeleton <- function(source_trait_ids,
             then later removed. Use renderInputUnitNode(), renderOutputNode() and \
             renderMetaNode()")
             
-    if (list(atids, hfs, htsids, btids) %>% 
+    if (list(atids, hfs, htsvids, btids) %>% 
             lapply(names) %>% 
             lapply(sort) %>% 
             sapply(equals, sort(names(stids))) %>% 
@@ -87,9 +87,9 @@ configSkeleton <- function(source_trait_ids,
             node %<>% addChildren(kids = btid_node)
         }
 
-        if (htsids[[hu]] %>% is.na %>% all %>% not){
-            htsid_node <- lapply(htsids[[hu]], xmlNode, name = "harmonized_trait_set_id")
-            node %<>% addChildren(kids = htsid_node)
+        if (htsvids[[hu]] %>% is.na %>% all %>% not){
+            htsvid_node <- lapply(htsvids[[hu]], xmlNode, name = "harmonized_trait_set_version_id")
+            node %<>% addChildren(kids = htsvid_node)
         }
 
         node %<>% addChildren(kids = list(xmlNode("custom_function", value = hfs[[hu]])))

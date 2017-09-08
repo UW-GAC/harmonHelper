@@ -24,8 +24,8 @@ test_that("Render input unit", {
         ref_node_single %<>% addChildren(kids = atid_node)
         btid_node <- lapply(b1, xmlNode, name = "batch_trait_id")
         ref_node_single %<>% addChildren(kids = btid_node)
-        htsid_node <- lapply(h1, xmlNode, name = "harmonized_trait_set_id")
-        ref_node_single %<>% addChildren(kids = htsid_node)
+        htsvid_node <- lapply(h1, xmlNode, name = "harmonized_trait_set_version_id")
+        ref_node_single %<>% addChildren(kids = htsvid_node)
         ref_node_single %<>% addChildren(kids = list(xmlNode("custom_function", value = f)))
 
         
@@ -40,7 +40,7 @@ test_that("Render input unit", {
         ref_node_mixed %<>% addChildren(kids = atid_node)
         btid_node <- lapply(b, xmlNode, name = "batch_trait_id")
         ref_node_mixed %<>% addChildren(kids = btid_node)
-        ref_node_mixed %<>% addChildren(kids = htsid_node)
+        ref_node_mixed %<>% addChildren(kids = htsvid_node)
         ref_node_mixed %<>% addChildren(kids = list(xmlNode("custom_function", value = f)))
 
         expect_equivalent(test_node_mixed, ref_node_mixed)
@@ -55,8 +55,8 @@ test_that("Render input unit", {
         ref_node_multiple %<>% addChildren(kids = atid_node)
         btid_node <- lapply(b, xmlNode, name = "batch_trait_id")
         ref_node_multiple %<>% addChildren(kids = btid_node)
-        htsid_node <- lapply(h, xmlNode, name = "harmonized_trait_set_id")
-        ref_node_multiple %<>% addChildren(kids = htsid_node)
+        htsvid_node <- lapply(h, xmlNode, name = "harmonized_trait_set_version_id")
+        ref_node_multiple %<>% addChildren(kids = htsvid_node)
         ref_node_multiple %<>% addChildren(kids = list(xmlNode("custom_function", value = f)))
         
         expect_equivalent(test_node_multiple, ref_node_multiple)
