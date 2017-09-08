@@ -1,7 +1,7 @@
 Package: harmonHelper
 Type: Package
 Title: harmonHelper
-Version: 1.2.00
+Version: 1.3.00
 Author: Jai Broome
 Maintainer: Jai Broome <jbroome@uw.edu>
 Description: Helper functions for TOPMed phenotype harmonization

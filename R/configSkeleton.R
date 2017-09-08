@@ -70,8 +70,7 @@ configSkeleton <- function(source_trait_ids,
     # Input
     input_node <- xmlNode("input")
     for(hu in names(stids)){
-        node <- xmlNode("input_unit", attrs = c(unit_id = hu)) %>%
-            addChildren(kids = list(xmlNode("custom_function", value = hfs[[hu]])))
+        node <- xmlNode("input_unit", attrs = c(unit_id = hu)) 
 
         if (stids[[hu]] %>% is.na %>% all %>% not){
             stid_node <- lapply(stids[[hu]], xmlNode, name = "source_trait_id")
@@ -82,16 +81,18 @@ configSkeleton <- function(source_trait_ids,
             atid_node <- lapply(atids[[hu]], xmlNode, name = "age_trait_id")
             node %<>% addChildren(kids = atid_node)
         }
-
-        if (htsids[[hu]] %>% is.na %>% all %>% not){
-            htsid_node <- lapply(htsids[[hu]], xmlNode, name = "harmonized_trait_set_id")
-            node %<>% addChildren(kids = htsid_node)
-        }
         
         if (btids[[hu]] %>% is.na %>% all %>% not){
             btid_node <- lapply(btids[[hu]], xmlNode, name = "batch_trait_id")
             node %<>% addChildren(kids = btid_node)
         }
+
+        if (htsids[[hu]] %>% is.na %>% all %>% not){
+            htsid_node <- lapply(htsids[[hu]], xmlNode, name = "harmonized_trait_set_id")
+            node %<>% addChildren(kids = htsid_node)
+        }
+
+        node %<>% addChildren(kids = list(xmlNode("custom_function", value = hfs[[hu]])))
 
         input_node %<>% addChildren(kids = list(node))
     }
@@ -118,11 +119,15 @@ configSkeleton <- function(source_trait_ids,
     }
     
     if (hasArg(encoded)){
+        encoded_values_node <- xmlNode("encoded_values")
         for (v in names(encoded)){
-            target_kids %<>% c(list(xmlNode("value", value = encoded[v], attrs = c("code" = v))))
+        encoded_values_node %<>% 
+            addChildren(kids = list(xmlNode("value", 
+                                       value = encoded[v], 
+                                       attrs = c("code" = v))))
         }
+        target_kids %<>% c(list(encoded_values_node))
     }
-
     target_node %<>% addChildren(kids = target_kids)
 
     metadata_node %<>% addChildren(kids = list(target_node))

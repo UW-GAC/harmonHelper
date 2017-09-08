@@ -30,11 +30,15 @@ renderMetaNode <- function(name, description, data_type, unit, encoded, qc_doc,
     }
     
     if (hasArg(encoded)){
+        encoded_values_node <- xmlNode("encoded_values")
         for (v in names(encoded)){
-            target_kids %<>% c(list(xmlNode("value", value = encoded[v], attrs = c("code" = v))))
+        encoded_values_node %<>% 
+            addChildren(kids = list(xmlNode("value", 
+                                       value = encoded[v], 
+                                       attrs = c("code" = v))))
         }
+        target_kids %<>% c(list(encoded_values_node))
     }
-
     target_node %<>% addChildren(kids = target_kids)
 
     metadata_node %<>% addChildren(kids = list(target_node))

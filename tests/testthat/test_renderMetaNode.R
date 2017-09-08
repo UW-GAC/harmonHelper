@@ -16,18 +16,26 @@ test_that("Render metadata node", {
 
     ref_node <- xmlNode("metadata")
     target_node <- xmlNode("target")
+
+    encoded_values_node <- xmlNode("encoded_values")
+    for (v in names(encoded)){
+    encoded_values_node %<>% 
+        addChildren(kids = list(xmlNode("value", 
+                                   value = encoded[v], 
+                                   attrs = c("code" = v))))
+    }
+
     target_kids <- list(xmlNode("name", value = name),
                       xmlNode("description", value = description),
-                      xmlNode("data_type", value = data_type))
-    target_kids %<>% c(list(xmlNode("unit", value = unit)))
-    for (v in names(encoded)){
-        target_kids %<>% c(list(xmlNode("value", value = encoded[v], attrs = c("code" = v))))
-    }
+                      xmlNode("data_type", value = data_type),
+                      xmlNode("unit", value = unit),
+                      encoded_values_node)
     target_node %<>% addChildren(kids = target_kids)
-    ref_node %<>% addChildren(kids = list(target_node))
-    ref_node %<>% addChildren(kids = list(xmlNode("qc_document", value = qc_doc)))
-    ref_node %<>%  addChildren(kids = list(xmlNode("is_longitudinal")))
-    ref_node %<>%  addChildren(kids = list(xmlNode("has_batch")))
+
+    ref_node %<>% addChildren(kids = list(target_node,
+                                          xmlNode("qc_document", value = qc_doc),
+                                          xmlNode("is_longitudinal"),
+                                          xmlNode("has_batch")))
     
     test_node <- renderMetaNode(name, description, data_type, unit, encoded, qc_doc,
                                 is_longitudinal = TRUE, has_batch = TRUE)
@@ -50,12 +58,19 @@ test_that("Render metadata node", {
 
     ref_node <- xmlNode("metadata")
     target_node <- xmlNode("target")
+
+    encoded_values_node <- xmlNode("encoded_values")
+    for (v in names(encoded)){
+    encoded_values_node %<>% 
+        addChildren(kids = list(xmlNode("value", 
+                                   value = encoded[v], 
+                                   attrs = c("code" = v))))
+    }
+
     target_kids <- list(xmlNode("name", value = name),
                       xmlNode("description", value = description),
-                      xmlNode("data_type", value = data_type))
-    for (v in names(encoded)){
-        target_kids %<>% c(list(xmlNode("value", value = encoded[v], attrs = c("code" = v))))
-    }
+                      xmlNode("data_type", value = data_type),
+                      encoded_values_node)
     target_node %<>% addChildren(kids = target_kids)
     ref_node %<>% addChildren(kids = list(target_node))
     ref_node %<>% addChildren(kids = list(xmlNode("qc_document", value = qc_doc)))

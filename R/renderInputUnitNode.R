@@ -20,17 +20,17 @@ renderInputUnitNode <- function(unit_name,
         stop("Please supply source_trait_ids for at least one argument")
     }
 
-    node <- xmlNode("input_unit", attrs = c(unit_id = unit_name)) %>%
-        addChildren(kids = list(xmlNode("custom_function", value = hfs)))
+    node <- xmlNode("input_unit", attrs = c(unit_id = unit_name))
 
     stid_node <- lapply(stids, xmlNode, name = "source_trait_id")
     node %<>% addChildren(kids = stid_node)
     atid_node <- lapply(atids, xmlNode, name = "age_trait_id")
     node %<>% addChildren(kids = atid_node)
-    htsid_node <- lapply(htsids, xmlNode, name = "harmonized_trait_set_id")
-    node %<>% addChildren(kids = htsid_node)
     btid_node <- lapply(btids, xmlNode, name = "batch_trait_id")
     node %<>% addChildren(kids = btid_node)
+    htsid_node <- lapply(htsids, xmlNode, name = "harmonized_trait_set_id")
+    node %<>% addChildren(kids = htsid_node)
+    node %<>% addChildren(kids = list(xmlNode("custom_function", value = hfs)))
     
     return(node)
 }
