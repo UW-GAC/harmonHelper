@@ -2,7 +2,7 @@
 
 export(combineDupCols)
 export(configSkeleton)
-export(qc_plot)
+export(qcPlot)
 export(readDats)
 export(renderInputUnitNode)
 export(renderMetaNode)

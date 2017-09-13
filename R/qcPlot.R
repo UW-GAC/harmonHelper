@@ -1,3 +1,4 @@
+#' Fit a model and plot the residuals
 #' @param dat A dataframe
 #' @param outcome name in dat for the quantitative trait
 #' @param covarsF names in dat for covariates that are to be factors
