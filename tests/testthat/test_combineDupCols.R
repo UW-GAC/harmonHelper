@@ -7,27 +7,31 @@ test_that("Test combineDupCols()", {
                              Sepal.Length3 = Sepal.Length, 
                              Sepal.Length4 = Sepal.Length)
               ref$Sepal.Length2[1:15] <- NA
-              ref$Sepal.Length3[10:20] <- NA
-              ref$Sepal.Length4[20:30] <- 1:10
-              test_warning <- combineDupCols()
-              "Not all columns match"
-              expect_equal()
+              ref$Sepal.Length3[11:20] <- NA
+              ref$Sepal.Length4[21:30] <- 1:10
+              expect_warning(combineDupCols(ref, 
+                                            c("Sepal.Length", "Sepal.Length4"), 
+                                            "sl"), 
+                             "Not all columns match")
+
+              order_alph <- function(x) x[, order(names(x))]
+
+              ref_2 <- select(ref, -Sepal.Length2) %>% 
+                  rename(sl = Sepal.Length) %>% 
+                  order_alph()
+              test_2 <- combineDupCols(ref, 
+                                      c("Sepal.Length2", "Sepal.Length"), 
+                                      "sl") %>% 
+                    order_alph()
+              expect_identical(test_2, ref_2)
+
+              ref_3 <- select(ref, -Sepal.Length2, -Sepal.Length3) %>% 
+                  rename(sl = Sepal.Length) %>% 
+                  order_alph()
+              test_3 <- combineDupCols(ref, 
+                                       c("Sepal.Length2", 
+                                         "Sepal.Length3", 
+                                         "Sepal.Length"), "sl") %>% 
+                    order_alph()
+              expect_identical(test_3, ref_3)
 })
-combineDupCols <- function(x, cols, new_name){
-    check <- apply(x[, cols], 1, scales::zero_range)
-    flag <- FALSE
-    if (!all(check)){
-        warning("Not all columns match")
-        print(paste("n mismatches:", sum(!check)))
-        flag <- TRUE
-    }
-    x[, new_name] <- x[, cols[1]]
-    for (i in 2:length(cols)){
-        ind <- is.na(x[, new_name])
-        x[ind, new_name] <- x[ind, cols[i]]
-        }
-    if (!flag){
-        x <- x[, !names(x) %in% cols]
-    }
-    return(x)
-}

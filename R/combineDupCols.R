@@ -4,9 +4,9 @@
 #' @param new_name The new name of the combined column, as a string
 #' @export
 combineDupCols <- function(x, cols, new_name){
-    check <- apply(x[, cols], 1, scales::zero_range)
+    check <- apply(x[, cols], 1, .zero_range)
     flag <- FALSE
-    if (!all(check)){
+    if (!all(check, na.rm = TRUE)){
         warning("Not all columns match")
         print(paste("n mismatches:", sum(!check)))
         flag <- TRUE
