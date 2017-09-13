@@ -4,7 +4,7 @@
 \alias{renderInputUnitNode}
 \title{Builds an input unit node for a phenotype harmonization configuration file}
 \usage{
-renderInputUnitNode(unit_name, stids = NULL, atids = NULL, htsids = NULL,
+renderInputUnitNode(unit_name, stids = NULL, atids = NULL, htsvids = NULL,
   btids = NULL, hfs)
 }
 \arguments{
@@ -14,7 +14,7 @@ renderInputUnitNode(unit_name, stids = NULL, atids = NULL, htsids = NULL,
 
 \item{atids}{A vector of source_trait_ids of phenotypes used to calculate age}
 
-\item{htsids}{A vector of harmonized_trait_set_ids}
+\item{htsvids}{A vector of harmonized_trait_set_version_ids}
 
 \item{btids}{A vector of source_trait_ids used for separating subjects/observations into batches}
 
