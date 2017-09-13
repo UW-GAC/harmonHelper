@@ -11,7 +11,7 @@
 #' @import ggplot2
 #' @import dplyr
 #' @import magrittr
-qc_plot <- function(dat,
+qcPlot <- function(dat,
                     outcome,
                     covarsF,
                     covarsN,
