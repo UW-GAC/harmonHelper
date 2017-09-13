@@ -65,7 +65,7 @@ cat(paste("plotting", title, "\n\n"))
      g <- g + facet_wrap(fw, ncol = 1)
    }
 
-  if (type = =  "box"){
+  if (type == "box"){
       g <- g + geom_boxplot(varwidth = TRUE) + 
         geom_text(aes(label = prettyNum(..count.., big.mark = ",")), 
                   y = yL, stat = "count", vjust = -1.2, color = "black",size = 4) 
