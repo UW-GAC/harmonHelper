@@ -3,7 +3,7 @@
 #' @param outcome name in dat for the quantitative trait
 #' @param covarsF names in dat for covariates that are to be factors
 #' @param covarsN names in dat for other covariates
-#' @param byVar grouping variables of interest
+#' @param byVars grouping variables of interest
 #' @param type type of plot: should be "box" or "violin"
 #' @param subj.include subject IDs for subjects to include; if NULL, all subjects in dat will be used
 #' @param title brief text to prepend to automatic title
@@ -15,7 +15,7 @@ qcPlot <- function(dat,
                    outcome,
                    covarsF,
                    covarsN,
-                   byVar,
+                   byVars,
                    type,
                    subj.include = NULL,
                    title = NULL){ 
@@ -27,7 +27,7 @@ qcPlot <- function(dat,
     covars <- c(covarsF, covarsN)
     if (!"data.frame" %in% class(dat)) stop("data must be data.frame")
 
-    if (!all(c(outcome, covars, byVar) %in% names(dat))){
+    if (!all(c(outcome, covars, byVars) %in% names(dat))){
         stop("some designated variable is not in data")
     }
 
@@ -37,7 +37,7 @@ qcPlot <- function(dat,
         stop("outcome must be numeric")
     }
 
-    vars <- c(covarsF, byVar)
+    vars <- c(covarsF, byVars)
     for(v in vars){
         dat[, v] <- as.factor(dat[, v])
     }
@@ -55,7 +55,7 @@ qcPlot <- function(dat,
     mx <- max(dat[, rm], na.rm = T)
     yL <- mn - 0.15 * abs(mn)
 
-    gtitle <- paste0("residuals by ", byVar, "\nmodel = ", model)
+    gtitle <- paste0("residuals by ", byVars, "\nmodel = ", model)
 
     if (!is.null(title)){
          gtitle <- paste(title, gtitle, sep = ": ")
@@ -63,12 +63,12 @@ qcPlot <- function(dat,
 
 cat(paste("plotting", gtitle, "\n\n"))
 
-    g <- ggplot(dat, aes_string(x = byVar,y = rm)) + 
+    g <- ggplot(dat, aes_string(x = byVars,y = rm)) + 
         ggtitle(gtitle) +
         ylim(yL,mx) 
 
-    if (length(byVar) > 1){
-        fw <- byVar[2:length(byVar)]
+    if (length(byVars) > 1){
+        fw <- byVars[2:length(byVars)]
             g <- g + facet_wrap(fw, ncol = 1) 
    }
 

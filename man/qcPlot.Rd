@@ -4,7 +4,7 @@
 \alias{qcPlot}
 \title{Fit a model and plot the residuals}
 \usage{
-qcPlot(dat, outcome, covarsF, covarsN, byVar, type, subj.include = NULL, fw,
+qcPlot(dat, outcome, covarsF, covarsN, byVars, type, subj.include = NULL,
   title = NULL)
 }
 \arguments{
@@ -16,13 +16,11 @@ qcPlot(dat, outcome, covarsF, covarsN, byVar, type, subj.include = NULL, fw,
 
 \item{covarsN}{names in dat for other covariates}
 
-\item{byVar}{grouping variable of interest}
+\item{byVars}{grouping variables of interest}
 
 \item{type}{type of plot: should be "box" or "violin"}
 
 \item{subj.include}{subject IDs for subjects to include; if NULL, all subjects in dat will be used}
-
-\item{fw}{Variable to facet by}
 
 \item{title}{brief text to prepend to automatic title}
 }
