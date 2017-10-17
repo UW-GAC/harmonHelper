@@ -2,11 +2,13 @@
 
 export(combineDupCols)
 export(configSkeleton)
+export(qcPlot)
 export(readDats)
 export(renderInputUnitNode)
 export(renderMetaNode)
 export(renderOutputNode)
 export(wbcCheck)
 import(XML)
+import(dplyr)
 import(ggplot2)
 import(magrittr)
