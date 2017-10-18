@@ -79,7 +79,7 @@ cat(paste("plotting", gtitle, "\n\n"))
                     y = yL, stat = "count", vjust = -1.2, 
                     color = "black", size = 4)
   } else {
-    gtitle <- paste0(gtitle, "\nlabel: (n, variance)")
+    gtitle <- paste0(gtitle, "\nlabel: (n; variance)")
     .ggVar <- function(x){ 
         # As a work around to issues with NSE in ggplot2, this function is 
         # is defined here with the value for yL hardcoded in
