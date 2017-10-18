@@ -64,7 +64,6 @@ qcPlot <- function(dat,
 cat(paste("plotting", gtitle, "\n\n"))
 
     g <- ggplot(dat, aes_string(x = byVars,y = rm)) + 
-        ggtitle(gtitle) +
         ylim(yL,mx) 
 
     if (length(byVars) > 1){
@@ -73,11 +72,14 @@ cat(paste("plotting", gtitle, "\n\n"))
    }
 
   if (type == "box"){
+      gtitle <- paste0(gtitle, "\nlabel: n")
       g <- g + geom_boxplot(varwidth = TRUE) +
+          ggtitle(gtitle) +
           geom_text(aes(label = prettyNum(..count.., big.mark = ",")), 
                     y = yL, stat = "count", vjust = -1.2, 
                     color = "black", size = 4)
   } else {
+    gtitle <- paste0(gtitle, "\nlabel: (n, variance)")
     .ggVar <- function(x){ 
         # As a work around to issues with NSE in ggplot2, this function is 
         # is defined here with the value for yL hardcoded in
@@ -89,6 +91,7 @@ cat(paste("plotting", gtitle, "\n\n"))
                            ")")))
     }
       g <- g + geom_violin() + 
+          ggtitle(gtitle) +
           stat_summary(fun.data = .ggVar, geom = "text")
    }
   return(g)
