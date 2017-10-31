@@ -18,7 +18,8 @@ qcPlot <- function(dat,
                    byVars,
                    type,
                    subj.include = NULL,
-                   title = NULL){ 
+                   title = NULL,
+                   skewed){ 
 
 # type = "box" yields box plots with sample sizes recorded below the box plots
 # type = "violin" yields violin plots with variances recorded below the violin plots
@@ -53,6 +54,13 @@ qcPlot <- function(dat,
     rm <- "resid"
     mn <- min(dat[, rm], na.rm = T)
     mx <- max(dat[, rm], na.rm = T)
+    if (skewed){
+        q1 <- quantile(dat[, rm], 0.25, na.rm = TRUE)
+        q3 <- quantile(dat[, rm], 0.75, na.rm = TRUE)
+        iqr <- IQR(dat[, rm], na.rm = TRUE)
+        mn %<>% max(q1 - 4 * iqr)
+        mx %<>% min(q3 + 4 * iqr)
+    } 
     yL <- mn - 0.15 * abs(mn)
 
     gtitle <- paste0("residuals by ", byVars, "\nmodel = ", model)
@@ -71,13 +79,18 @@ cat(paste("plotting", gtitle, "\n\n"))
             g <- g + facet_wrap(fw, ncol = 1) 
    }
 
+
   if (type == "box"){
       gtitle <- paste0(gtitle, "\nlabel: n")
-      g <- g + geom_boxplot(varwidth = TRUE) +
-          ggtitle(gtitle) +
+      g <- g + ggtitle(gtitle) +
           geom_text(aes(label = prettyNum(..count.., big.mark = ",")), 
                     y = yL, stat = "count", vjust = -1.2, 
                     color = "black", size = 4)
+          if (skewed){
+              g <- g + geom_boxplot(varwidth = TRUE, coef = 4, outlier.shape = NA)
+          } else {
+              g <- g + geom_boxplot(varwidth = TRUE)
+          }
   } else {
     gtitle <- paste0(gtitle, "\nlabel: (n; variance)")
     .ggVar <- function(x){ 
