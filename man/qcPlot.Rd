@@ -5,7 +5,7 @@
 \title{Fit a model and plot the residuals}
 \usage{
 qcPlot(dat, outcome, covarsF, covarsN, byVars, type, subj.include = NULL,
-  title = NULL)
+  title = NULL, skewed)
 }
 \arguments{
 \item{dat}{A dataframe}

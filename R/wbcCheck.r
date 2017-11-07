@@ -6,7 +6,6 @@
 #' @param neutro The name of the column with neutrophil measurements
 #' @param eosin The name of the column with eosinophil measurements
 #' @param baso The name of the column with basophil measurements
-#' @import ggplot2
 #' @export
 
 wbcCheck<-function(data,wbc="wbc_ncnc_bld",lymph="lymphocyte_ncnc_bld",mono="monocyte_ncnc_bld",

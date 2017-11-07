@@ -8,7 +8,6 @@
 #' @param subj.include subject IDs for subjects to include; if NULL, all subjects in dat will be used
 #' @param title brief text to prepend to automatic title
 #' @export
-#' @import ggplot2
 #' @import dplyr
 #' @import magrittr
 qcPlot <- function(dat,
