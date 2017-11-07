@@ -82,14 +82,16 @@ cat(paste("plotting", gtitle, "\n\n"))
 
   if (type == "box"){
       gtitle <- paste0(gtitle, "\nlabel: n")
-      g <- g + ggtitle(gtitle) +
+      g <- g + 
           geom_text(aes(label = prettyNum(..count.., big.mark = ",")), 
                     y = yL, stat = "count", vjust = -1.2, 
                     color = "black", size = 4)
           if (skewed){
-              g <- g + geom_boxplot(varwidth = TRUE, coef = 4, outlier.shape = NA)
+              g <- g + geom_boxplot(varwidth = TRUE, coef = 4, outlier.shape = NA) +
+                ggtitle(gtitle, subtitle = "'Whiskers' extended to a maximum of 4 IQRs and outlying points are not plotted")
           } else {
-              g <- g + geom_boxplot(varwidth = TRUE)
+              g <- g + geom_boxplot(varwidth = TRUE) +
+                ggtitle(gtitle)
           }
   } else {
     gtitle <- paste0(gtitle, "\nlabel: (n; variance)")
